@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Start View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="StartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="StartViewController" customModule="tunes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Что вы ищите?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3V-oW-CuE">
+                                <rect key="frame" x="10" y="114" width="339" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-kv-CSR">
+                                <rect key="frame" x="359" y="116" width="45" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="f1M-fA-OhC"/>
+                                </constraints>
+                                <state key="normal" title="Найти"/>
+                                <connections>
+                                    <action selector="clickSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Cg-FW-Okf"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NTN-jC-EeD">
+                                <rect key="frame" x="10" y="227" width="394" height="635"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ElementCell" textLabel="KcS-la-U1h" detailTextLabel="DMy-Rh-X6k" rowHeight="85" style="IBUITableViewCellStyleSubtitle" id="09V-gO-swm">
+                                        <rect key="frame" x="0.0" y="28" width="394" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="09V-gO-swm" id="3EC-mM-bx0">
+                                            <rect key="frame" x="0.0" y="0.0" width="394" height="85"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KcS-la-U1h">
+                                                    <rect key="frame" x="20" y="22" width="33" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DMy-Rh-X6k">
+                                                    <rect key="frame" x="20" y="45.5" width="33" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="mE0-cP-UMa"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Fti-em-3hd"/>
+                                </connections>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-1s-ZDX">
+                                <rect key="frame" x="134.5" y="156" width="145" height="32"/>
+                                <segments>
+                                    <segment title="Музыка"/>
+                                    <segment title="Фильмы"/>
+                                </segments>
+                            </segmentedControl>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YeR-sN-oCq">
+                                <rect key="frame" x="197" y="197" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Vqy-1s-ZDX" firstAttribute="top" secondItem="b3V-oW-CuE" secondAttribute="bottom" constant="8" symbolic="YES" id="7MB-m9-BqE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hkU-kv-CSR" secondAttribute="trailing" constant="10" id="El4-Qi-znz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NTN-jC-EeD" secondAttribute="trailing" constant="10" id="GPb-Ym-dFW"/>
+                            <constraint firstItem="hkU-kv-CSR" firstAttribute="leading" secondItem="b3V-oW-CuE" secondAttribute="trailing" constant="10" id="J5h-dh-zdM"/>
+                            <constraint firstItem="NTN-jC-EeD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R7x-bZ-1rD"/>
+                            <constraint firstItem="b3V-oW-CuE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="ROu-U5-lto"/>
+                            <constraint firstItem="Vqy-1s-ZDX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VpS-ew-f7B"/>
+                            <constraint firstItem="YeR-sN-oCq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XCH-gw-lKr"/>
+                            <constraint firstItem="hkU-kv-CSR" firstAttribute="centerY" secondItem="b3V-oW-CuE" secondAttribute="centerY" id="YVU-WG-TAN"/>
+                            <constraint firstItem="hkU-kv-CSR" firstAttribute="leading" secondItem="b3V-oW-CuE" secondAttribute="trailing" constant="10" id="Ywd-St-7b4"/>
+                            <constraint firstItem="NTN-jC-EeD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gkk-TL-tia"/>
+                            <constraint firstItem="YeR-sN-oCq" firstAttribute="top" secondItem="Vqy-1s-ZDX" secondAttribute="bottom" constant="10" id="hO9-Zi-HXJ"/>
+                            <constraint firstItem="b3V-oW-CuE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="qaF-ls-TgO"/>
+                            <constraint firstItem="NTN-jC-EeD" firstAttribute="top" secondItem="YeR-sN-oCq" secondAttribute="bottom" constant="10" id="wYj-1O-PaN"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4cC-of-cZS" appends="YES" id="EkB-u7-GZx"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="contentSwitch" destination="Vqy-1s-ZDX" id="1VI-Jz-5Pu"/>
+                        <outlet property="contentTableView" destination="NTN-jC-EeD" id="hrd-kB-Gqc"/>
+                        <outlet property="loader" destination="YeR-sN-oCq" id="Rlh-MI-Aht"/>
+                        <outlet property="searchTextField" destination="b3V-oW-CuE" id="gs0-qj-ZNm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4cC-of-cZS">
+                    <connections>
+                        <action selector="tapView:" destination="BYZ-38-t0r" id="xwG-w5-VGr"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="87.723214285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
