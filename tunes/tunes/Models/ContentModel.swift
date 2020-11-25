@@ -7,75 +7,69 @@
 
 import Foundation
 
-struct ItunesElement: Decodable {
-    var artistName: String
-    var trackName: String
-    var artworkUrl100: String
-    var previewUrl: String
-}
-
-struct ItunesResponse: Decodable {
-    var resultCount: Int
-    var results: [ItunesElement]
-}
-
 struct Movie: Decodable {
     
 }
 
-final class ContentModel {    
-    init() {}
+final class ContentModel {
     
-    func getMusics(
-        term: String,
-        callback: (([ItunesElement]) -> Void)? = nil,
-        failback: ((String) -> Void)? = nil) {
-        let urlString = "https://itunes.apple.com/search?term=\(term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&media=music&entity=musicTrack&lang=ru_ru"
-        
-        self.itunesRequest(urlString: urlString, callback: callback, failback: failback)
-    }
-
-    func getMovies(
-        term: String,
-        callback: (([ItunesElement]) -> Void)? = nil,
-        failback: ((String) -> Void)? = nil) {
-        
-        let urlString = "https://itunes.apple.com/search?term=\(term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&media=movie&entity=movie&lang=ru_ru"
-        
-        self.itunesRequest(urlString: urlString, callback: callback, failback: failback)
+    private var network: ItunesNetwork = Network.instance
+    
+    private var isMusic: Bool
+    
+    private var movies: [ItunesElement]?
+    
+    private var musics: [ItunesElement]?
+    
+    init() {
+        self.isMusic = true
     }
     
-    private func itunesRequest(
-        urlString: String,
-        callback: (([ItunesElement]) -> Void)? = nil,
+    func contentChange() -> Void {
+        self.isMusic = !self.isMusic
+    }
+    
+    func size() -> Int {
+        return self.isMusic ? self.musics?.count ?? 0 : self.movies?.count ?? 0
+    }
+    
+    func getElement(index: Int) -> ItunesElement? {
+        return self.isMusic ? self.musics?[index] : self.movies?[index]
+    }
+    
+    func clear() -> Void {
+        self.movies = nil
+        self.musics = nil
+    }
+    
+    func ready() -> Bool {
+        return self.musics != nil && self.movies != nil
+    }
+    
+    func fillMovies(
+        term: String,
+        callback: (() -> Void)? = nil,
         failback: ((String) -> Void)? = nil) {
         
-        let url = URL(string: urlString)!
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                failback?(error.localizedDescription)
-                return
-            }
-            
-            guard let data = data else {
-                failback?("Ничего не найдено")
-                return
-            }
-            
-            let stringBody = String(data: data, encoding: .utf8) //для русских символов
-            if let body = try? JSONDecoder().decode(ItunesResponse.self, from: stringBody!.data(using: .utf8)!) {
-                if (body.resultCount == 0) {
-                    failback?("Ничего не найдено")
-                    return
-                }
-                
-                callback?(body.results)
-            } else {
-                failback?("Ошибка при получении результа")
-            }
+        let modelCallback = { [weak self] (movies: [ItunesElement]) in
+            self?.movies = movies
+            callback?()
         }
         
-        task.resume()
+        self.network.getMovies(term: term, callback: modelCallback, failback: failback)
     }
+    
+    func fillMusics(
+        term: String,
+        callback: (() -> Void)? = nil,
+        failback: ((String) -> Void)? = nil) {
+        
+        let modelCallback = { [weak self] (musics: [ItunesElement]) in
+            self?.musics = musics
+            callback?()
+        }
+        
+        self.network.getMusics(term: term, callback: modelCallback, failback: failback)
+    }
+    
 }

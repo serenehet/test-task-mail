@@ -14,18 +14,20 @@ final class StartViewController: UIViewController {
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
     private var term: String = ""
-    private var musics: [ItunesElement]?
-    private var movies: [ItunesElement]?
-    private var contentIsMusic = true
     
     private lazy var model = ContentModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        self.configureTableView()
         self.loaderChange(animate: false)
         self.contentChange(hidden: true)
-        
+    }
+    
+    private func configureTableView() -> Void {
+        // убираем линии у неиспользуемых ячеек
+        self.contentTableView.tableFooterView = UIView(frame: .zero)
         self.contentTableView.delegate = self
         self.contentTableView.dataSource = self
     }
@@ -69,11 +71,12 @@ final class StartViewController: UIViewController {
             return nil
         }
         
+        self.term = input
         return input
     }
     
     private func updateTableView() -> Void {
-        if (self.movies == nil || self.musics == nil) {
+        if (!self.model.ready()) {
             return
         }
 
@@ -90,18 +93,15 @@ final class StartViewController: UIViewController {
         guard let term = self.validateSearchInput() else {
             return
         }
-        self.term = term
         
         self.loaderChange(animate: true)
         self.hideKeyboard()
         self.contentChange(hidden: true)
         
-        self.musics = nil
-        self.movies = nil
+        self.model.clear()
+    
         
-        let callbackMusics = { [weak self] (musics: [ItunesElement]) in
-            self?.musics = musics
-            print("music", self?.musics![0])
+        let callbackMusics: () -> Void = { [weak self] in
             self?.updateTableView()
         }
         
@@ -113,22 +113,20 @@ final class StartViewController: UIViewController {
             }
         }
         
-        self.model.getMusics(term: term, callback: callbackMusics, failback: failback)
+        self.model.fillMusics(term: term, callback: callbackMusics, failback: failback)
         
-        let callbackMovies = { [weak self] (movies: [ItunesElement]) in
-            self?.movies = movies
-            print("movie", self?.movies![0])
+        let callbackMovies: () -> Void = { [weak self] in
             self?.updateTableView()
         }
         
-        self.model.getMovies(term: term, callback: callbackMovies, failback: failback)
+        self.model.fillMovies(term: term, callback: callbackMovies, failback: failback)
     }
     
     @IBAction func tapView(_ sender: Any) {
         self.hideKeyboard()
     }
     @IBAction func changeTypeContent(_ sender: Any) {
-        self.contentIsMusic = !self.contentIsMusic
+        self.model.contentChange()
         self.contentTableView.reloadData()
     }
     
@@ -136,15 +134,17 @@ final class StartViewController: UIViewController {
 
 extension StartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.musics?.count ?? 0
+        return self.model.size()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ElementCell", for: indexPath)
         
-        let element = self.contentIsMusic ? self.musics![indexPath.row] : self.movies![indexPath.row]
-        cell.textLabel?.text = element.trackName
-        cell.detailTextLabel?.text = element.artistName
+        if let element = self.model.getElement(index: indexPath.row) {
+            cell.textLabel?.text = element.trackName
+            cell.detailTextLabel?.text = element.artistName
+        }
+
         return cell
     }
 }

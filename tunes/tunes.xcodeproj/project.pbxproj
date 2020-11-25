@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9685B7A5256E35DB008F824A /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B7A4256E35DB008F824A /* ContentModel.swift */; };
+		9685B7A8256EA814008F824A /* ResponseStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685B7A7256EA814008F824A /* ResponseStructs.swift */; };
 		96CB83F1256D439300EF6728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB83F0256D439300EF6728 /* AppDelegate.swift */; };
 		96CB83F3256D439300EF6728 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB83F2256D439300EF6728 /* SceneDelegate.swift */; };
 		96CB83F8256D439300EF6728 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96CB83F6256D439300EF6728 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		9685B7A4256E35DB008F824A /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		9685B7A7256EA814008F824A /* ResponseStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStructs.swift; sourceTree = "<group>"; };
 		96CB83ED256D439300EF6728 /* tunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CB83F0256D439300EF6728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96CB83F2256D439300EF6728 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				96CB840B256D836500EF6728 /* Network.swift */,
+				9685B7A7256EA814008F824A /* ResponseStructs.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96CB8406256D829C00EF6728 /* StartViewController.swift in Sources */,
+				9685B7A8256EA814008F824A /* ResponseStructs.swift in Sources */,
 				96CB83F1256D439300EF6728 /* AppDelegate.swift in Sources */,
 				9685B7A5256E35DB008F824A /* ContentModel.swift in Sources */,
 				96CB840C256D836500EF6728 /* Network.swift in Sources */,
