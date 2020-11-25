@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class StartViewController: UIViewController {
     @IBOutlet weak var searchTextField: UITextField!
@@ -13,7 +14,10 @@ final class StartViewController: UIViewController {
     @IBOutlet weak var contentTableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    @IBOutlet var tapView: UITapGestureRecognizer!
+    
     private var term: String = ""
+    private let idCell = "ElementCell"
     
     private lazy var model = ContentModel()
     
@@ -23,6 +27,15 @@ final class StartViewController: UIViewController {
         self.configureTableView()
         self.loaderChange(animate: false)
         self.contentChange(hidden: true)
+        
+        
+        self.tapView.isEnabled = false
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChanged), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChanged), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardChanged() -> Void {
+        self.tapView.isEnabled = !self.tapView.isEnabled
     }
     
     private func configureTableView() -> Void {
@@ -30,6 +43,8 @@ final class StartViewController: UIViewController {
         self.contentTableView.tableFooterView = UIView(frame: .zero)
         self.contentTableView.delegate = self
         self.contentTableView.dataSource = self
+        
+        self.contentTableView.register(UINib(nibName: "ContentTableViewCell", bundle: nil), forCellReuseIdentifier: self.idCell)
     }
     
     private func contentChange(hidden: Bool) -> Void {
@@ -45,6 +60,7 @@ final class StartViewController: UIViewController {
     private func hideKeyboard() -> Void {
         // при нажатии вне клавиатуры скрываем её
         // при изменении дизигна можем навесить еще что-нибудь
+        
         self.searchTextField.resignFirstResponder()
     }
     
@@ -87,8 +103,6 @@ final class StartViewController: UIViewController {
         }
     }
 
-    
-    
     @IBAction func clickSearchButton(_ sender: Any) {
         guard let term = self.validateSearchInput() else {
             return
@@ -122,14 +136,14 @@ final class StartViewController: UIViewController {
         self.model.fillMovies(term: term, callback: callbackMovies, failback: failback)
     }
     
-    @IBAction func tapView(_ sender: Any) {
-        self.hideKeyboard()
-    }
     @IBAction func changeTypeContent(_ sender: Any) {
         self.model.contentChange()
         self.contentTableView.reloadData()
+        self.hideKeyboard()
     }
-    
+    @IBAction func clickView(_ sender: UITapGestureRecognizer) {
+        self.hideKeyboard()
+    }
 }
 
 extension StartViewController: UITableViewDataSource {
@@ -138,11 +152,13 @@ extension StartViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ElementCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ElementCell", for: indexPath) as! ContentTableViewCell
+        
         
         if let element = self.model.getElement(index: indexPath.row) {
-            cell.textLabel?.text = element.trackName
-            cell.detailTextLabel?.text = element.artistName
+            cell.titleLabel.text = element.trackName
+            cell.subtitleLabel.text = element.artistName
+            cell.loadImage(urlString: element.artworkUrl100)
         }
 
         return cell
@@ -150,6 +166,13 @@ extension StartViewController: UITableViewDataSource {
 }
 
 extension StartViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.hideKeyboard()
+        self.contentTableView.deselectRow(at: indexPath, animated: true)
+        let url = URL(string: (self.model.getElement(index: indexPath.row)?.previewUrl)!)!
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
+    }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {}
 }
-

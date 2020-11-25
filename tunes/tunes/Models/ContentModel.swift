@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Movie: Decodable {
-    
-}
-
 final class ContentModel {
     
     private var network: ItunesNetwork = Network.instance

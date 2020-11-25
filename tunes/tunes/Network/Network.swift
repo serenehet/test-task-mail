@@ -60,11 +60,6 @@ class Network: ItunesNetwork {
             
             let stringBody = String(data: data, encoding: .utf8) //для русских символов
             if let body = try? JSONDecoder().decode(ItunesResponse.self, from: stringBody!.data(using: .utf8)!) {
-                if (body.resultCount == 0) {
-                    failback?("Ничего не найдено")
-                    return
-                }
-                
                 callback?(body.results)
             } else {
                 failback?("Ошибка при получении результа")

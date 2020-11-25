@@ -34,32 +34,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NTN-jC-EeD">
                                 <rect key="frame" x="10" y="227" width="394" height="635"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ElementCell" textLabel="KcS-la-U1h" detailTextLabel="DMy-Rh-X6k" rowHeight="85" style="IBUITableViewCellStyleSubtitle" id="09V-gO-swm">
-                                        <rect key="frame" x="0.0" y="28" width="394" height="85"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="09V-gO-swm" id="3EC-mM-bx0">
-                                            <rect key="frame" x="0.0" y="0.0" width="394" height="85"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KcS-la-U1h">
-                                                    <rect key="frame" x="20" y="22" width="33" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DMy-Rh-X6k">
-                                                    <rect key="frame" x="20" y="45.5" width="33" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="mE0-cP-UMa"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Fti-em-3hd"/>
@@ -77,6 +51,7 @@
                             </segmentedControl>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YeR-sN-oCq">
                                 <rect key="frame" x="197" y="197" width="20" height="20"/>
+                                <gestureRecognizers/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -99,7 +74,7 @@
                             <constraint firstItem="NTN-jC-EeD" firstAttribute="top" secondItem="YeR-sN-oCq" secondAttribute="bottom" constant="10" id="wYj-1O-PaN"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="4cC-of-cZS" appends="YES" id="EkB-u7-GZx"/>
+                            <outletCollection property="gestureRecognizers" destination="4MG-a2-I5R" appends="YES" id="fKj-ff-zrn"/>
                         </connections>
                     </view>
                     <connections>
@@ -107,12 +82,13 @@
                         <outlet property="contentTableView" destination="NTN-jC-EeD" id="hrd-kB-Gqc"/>
                         <outlet property="loader" destination="YeR-sN-oCq" id="Rlh-MI-Aht"/>
                         <outlet property="searchTextField" destination="b3V-oW-CuE" id="gs0-qj-ZNm"/>
+                        <outlet property="tapView" destination="4MG-a2-I5R" id="zmF-NF-pBA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="4cC-of-cZS">
+                <tapGestureRecognizer id="4MG-a2-I5R">
                     <connections>
-                        <action selector="tapView:" destination="BYZ-38-t0r" id="xwG-w5-VGr"/>
+                        <action selector="clickView:" destination="BYZ-38-t0r" id="XBF-78-Nu1"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
