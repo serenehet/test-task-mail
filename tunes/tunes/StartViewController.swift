@@ -16,6 +16,7 @@ final class StartViewController: UIViewController {
     private var term: String = ""
     private var musics: [ItunesElement]?
     private var movies: [ItunesElement]?
+    private var contentIsMusic = true
     
     private lazy var model = ContentModel()
     
@@ -26,7 +27,7 @@ final class StartViewController: UIViewController {
         self.contentChange(hidden: true)
         
         self.contentTableView.delegate = self
-//        self.contentTableView.dataSource = self
+        self.contentTableView.dataSource = self
     }
     
     private func contentChange(hidden: Bool) -> Void {
@@ -126,6 +127,10 @@ final class StartViewController: UIViewController {
     @IBAction func tapView(_ sender: Any) {
         self.hideKeyboard()
     }
+    @IBAction func changeTypeContent(_ sender: Any) {
+        self.contentIsMusic = !self.contentIsMusic
+        self.contentTableView.reloadData()
+    }
     
 }
 
@@ -137,7 +142,7 @@ extension StartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ElementCell", for: indexPath)
         
-        let element = self.musics![indexPath.row]
+        let element = self.contentIsMusic ? self.musics![indexPath.row] : self.movies![indexPath.row]
         cell.textLabel?.text = element.trackName
         cell.detailTextLabel?.text = element.artistName
         return cell
