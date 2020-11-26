@@ -30,14 +30,26 @@ final class StartViewController: UIViewController {
         self.contentChange(hidden: true)
         self.labelNothingElements.isHidden = true
         
-        
+        self.configureKeyboard()
+    }
+    
+    private func configureKeyboard() -> Void {
         self.tapView.isEnabled = false
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChanged), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardChanged), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        self.searchTextField.delegate = self
     }
     
     @objc private func keyboardChanged() -> Void {
         self.tapView.isEnabled = !self.tapView.isEnabled
+    }
+    
+    private func hideKeyboard() -> Void {
+        // при нажатии вне клавиатуры скрываем её
+        // при изменении дизигна можем навесить еще что-нибудь
+        self.searchTextField.resignFirstResponder()
     }
     
     private func configureTableView() -> Void {
@@ -57,12 +69,6 @@ final class StartViewController: UIViewController {
     private func loaderChange(animate: Bool) -> Void {
         self.loader.isHidden = !animate
         animate ? self.loader.startAnimating() : self.loader.stopAnimating()
-    }
-    
-    private func hideKeyboard() -> Void {
-        // при нажатии вне клавиатуры скрываем её
-        // при изменении дизигна можем навесить еще что-нибудь
-        self.searchTextField.resignFirstResponder()
     }
     
     private func renderError(text: String) -> Void {
@@ -103,8 +109,8 @@ final class StartViewController: UIViewController {
             self.contentChange(hidden: false)
         }
     }
-
-    @IBAction func clickSearchButton(_ sender: Any) -> Void {
+    
+    private func search() -> Void {
         guard let term = self.validateSearchInput() else {
             return
         }
@@ -135,6 +141,10 @@ final class StartViewController: UIViewController {
         }
         
         self.model.fillMovies(term: term, callback: callbackMovies, failback: failback)
+    }
+
+    @IBAction func clickSearchButton(_ sender: Any) -> Void {
+        self.search()
     }
     
     @IBAction func changeTypeContent(_ sender: Any) -> Void {
@@ -185,4 +195,11 @@ extension StartViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) -> Void {}
+}
+
+extension StartViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.search()
+        return true
+    }
 }
