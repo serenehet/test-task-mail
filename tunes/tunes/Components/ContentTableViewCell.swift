@@ -14,6 +14,8 @@ class ContentTableViewCell: UITableViewCell {
     @IBOutlet weak var imageViewCell: UIImageView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
+    private var currentUrlString = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -28,33 +30,34 @@ class ContentTableViewCell: UITableViewCell {
         self.imageViewCell.layer.borderWidth = 1.5
     }
     
-    public func loadImage(urlString: String) -> Void {
-        self.loader.isHidden = false
-        self.loader.startAnimating()
-        self.imageViewCell.image = nil
-        
-        let callback: () -> Void = { [weak self] in
-            self?.loader.isHidden = true
-            self?.loader.stopAnimating()
+    private func imageChange(image: UIImage?) -> Void {
+        if let image = image {
+            self.imageViewCell.image = image
+            self.loader.isHidden = true
+            self.loader.stopAnimating()
+        } else {
+            self.loader.isHidden = false
+            self.loader.startAnimating()
+            self.imageViewCell.image = nil
         }
-        
-        self.imageViewCell.load(urlString: urlString, callback: callback)
     }
-}
-
-fileprivate extension UIImageView {
-    func load(urlString: String, callback: @escaping () -> Void ) -> Void {
+    
+    public func loadImage(urlString: String) -> Void {
+        self.imageChange(image: nil)
         guard let url = URL(string: urlString) else {
             return
         }
         
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                        callback()
-                    }
+        self.currentUrlString = urlString
+        DispatchQueue.global().async { [weak self, urlString] in
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                // при периспользовании может несколько разных приходить, нужна чтобы последняя запрашиваемая
+                guard let currentUrl = self?.currentUrlString, urlString == currentUrl else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self?.imageChange(image: image)
                 }
             }
         }

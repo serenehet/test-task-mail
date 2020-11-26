@@ -62,7 +62,6 @@ final class StartViewController: UIViewController {
     private func hideKeyboard() -> Void {
         // при нажатии вне клавиатуры скрываем её
         // при изменении дизигна можем навесить еще что-нибудь
-        
         self.searchTextField.resignFirstResponder()
     }
     
