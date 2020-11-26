@@ -25,7 +25,11 @@ class Network: ItunesNetwork {
         term: String,
         callback: (([ItunesElement]) -> Void)? = nil,
         failback: ((String) -> Void)? = nil) {
-        let urlString = "https://itunes.apple.com/search?term=\(term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&media=music&entity=musicTrack&lang=ru_ru"
+        guard let fixedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            failback?("Неверный формат запроса")
+            return
+        }
+        let urlString = "https://itunes.apple.com/search?term=\(fixedTerm)&media=music&lang=ru_ru"
         
         self.itunesRequest(urlString: urlString, callback: callback, failback: failback)
     }
@@ -34,8 +38,12 @@ class Network: ItunesNetwork {
         term: String,
         callback: (([ItunesElement]) -> Void)? = nil,
         failback: ((String) -> Void)? = nil) {
+        guard let fixedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            failback?("Неверный формат запроса")
+            return
+        }
         
-        let urlString = "https://itunes.apple.com/search?term=\(term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&media=movie&entity=movie&lang=ru_ru"
+        let urlString = "https://itunes.apple.com/search?term=\(fixedTerm)&media=movie&lang=ru_ru"
         
         self.itunesRequest(urlString: urlString, callback: callback, failback: failback)
     }
@@ -45,7 +53,10 @@ class Network: ItunesNetwork {
         callback: (([ItunesElement]) -> Void)? = nil,
         failback: ((String) -> Void)? = nil) {
         
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else {
+            failback?("Запрос не получилось отправить")
+            return
+        }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -58,8 +69,7 @@ class Network: ItunesNetwork {
                 return
             }
             
-            let stringBody = String(data: data, encoding: .utf8) //для русских символов
-            if let body = try? JSONDecoder().decode(ItunesResponse.self, from: stringBody!.data(using: .utf8)!) {
+            if let body = try? JSONDecoder().decode(ItunesResponse.self, from: data) {
                 callback?(body.results)
             } else {
                 failback?("Ошибка при получении результа")

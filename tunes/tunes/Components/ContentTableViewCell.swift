@@ -7,7 +7,7 @@
 
 import UIKit
 
-@IBDesignable class ContentTableViewCell: UITableViewCell {
+class ContentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -17,12 +17,15 @@ import UIKit
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.roundImage()
+        self.loader.isHidden = false
+    }
+    
+    private func roundImage() -> Void {
         self.imageViewCell.layer.cornerRadius = self.imageViewCell.frame.height / 2
         self.imageViewCell.layer.masksToBounds = true
         self.imageViewCell.layer.borderColor = UIColor.lightGray.cgColor
         self.imageViewCell.layer.borderWidth = 1.5
-        
-        self.loader.isHidden = false
     }
     
     public func loadImage(urlString: String) -> Void {

@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,23 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Что вы ищите?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3V-oW-CuE">
-                                <rect key="frame" x="10" y="114" width="339" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Что вы ищите?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3V-oW-CuE">
+                                <rect key="frame" x="10" y="114" width="329" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-kv-CSR">
-                                <rect key="frame" x="359" y="116" width="45" height="30"/>
+                                <rect key="frame" x="349" y="114.5" width="55" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="f1M-fA-OhC"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="55" id="4NF-Ml-61o"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Найти"/>
                                 <connections>
                                     <action selector="clickSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Cg-FW-Okf"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NTN-jC-EeD">
-                                <rect key="frame" x="10" y="227" width="394" height="635"/>
+                                <rect key="frame" x="10" y="209" width="394" height="653"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="mE0-cP-UMa"/>
@@ -40,7 +42,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-1s-ZDX">
-                                <rect key="frame" x="134.5" y="156" width="145" height="32"/>
+                                <rect key="frame" x="134.5" y="163" width="145" height="32"/>
                                 <segments>
                                     <segment title="Музыка"/>
                                     <segment title="Фильмы"/>
@@ -50,28 +52,36 @@
                                 </connections>
                             </segmentedControl>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="YeR-sN-oCq">
-                                <rect key="frame" x="197" y="197" width="20" height="20"/>
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
                                 <gestureRecognizers/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ничего не найдено =(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHP-yf-QPP">
+                                <rect key="frame" x="116.5" y="442.5" width="181" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Vqy-1s-ZDX" firstAttribute="top" secondItem="b3V-oW-CuE" secondAttribute="bottom" constant="8" symbolic="YES" id="7MB-m9-BqE"/>
+                            <constraint firstItem="Vqy-1s-ZDX" firstAttribute="top" secondItem="b3V-oW-CuE" secondAttribute="bottom" constant="15" id="7MB-m9-BqE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hkU-kv-CSR" secondAttribute="trailing" constant="10" id="El4-Qi-znz"/>
+                            <constraint firstItem="NTN-jC-EeD" firstAttribute="top" secondItem="Vqy-1s-ZDX" secondAttribute="bottom" constant="15" id="F1M-MF-GHe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NTN-jC-EeD" secondAttribute="trailing" constant="10" id="GPb-Ym-dFW"/>
                             <constraint firstItem="hkU-kv-CSR" firstAttribute="leading" secondItem="b3V-oW-CuE" secondAttribute="trailing" constant="10" id="J5h-dh-zdM"/>
+                            <constraint firstItem="kHP-yf-QPP" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Q3K-Kz-RVL"/>
                             <constraint firstItem="NTN-jC-EeD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R7x-bZ-1rD"/>
                             <constraint firstItem="b3V-oW-CuE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="ROu-U5-lto"/>
                             <constraint firstItem="Vqy-1s-ZDX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VpS-ew-f7B"/>
-                            <constraint firstItem="YeR-sN-oCq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XCH-gw-lKr"/>
+                            <constraint firstItem="kHP-yf-QPP" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WX2-cI-LKi"/>
                             <constraint firstItem="hkU-kv-CSR" firstAttribute="centerY" secondItem="b3V-oW-CuE" secondAttribute="centerY" id="YVU-WG-TAN"/>
                             <constraint firstItem="hkU-kv-CSR" firstAttribute="leading" secondItem="b3V-oW-CuE" secondAttribute="trailing" constant="10" id="Ywd-St-7b4"/>
                             <constraint firstItem="NTN-jC-EeD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gkk-TL-tia"/>
-                            <constraint firstItem="YeR-sN-oCq" firstAttribute="top" secondItem="Vqy-1s-ZDX" secondAttribute="bottom" constant="10" id="hO9-Zi-HXJ"/>
+                            <constraint firstItem="YeR-sN-oCq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="id5-dM-lLz"/>
+                            <constraint firstItem="YeR-sN-oCq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="jNd-GC-fvD"/>
                             <constraint firstItem="b3V-oW-CuE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="qaF-ls-TgO"/>
-                            <constraint firstItem="NTN-jC-EeD" firstAttribute="top" secondItem="YeR-sN-oCq" secondAttribute="bottom" constant="10" id="wYj-1O-PaN"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="4MG-a2-I5R" appends="YES" id="fKj-ff-zrn"/>
@@ -80,6 +90,7 @@
                     <connections>
                         <outlet property="contentSwitch" destination="Vqy-1s-ZDX" id="1VI-Jz-5Pu"/>
                         <outlet property="contentTableView" destination="NTN-jC-EeD" id="hrd-kB-Gqc"/>
+                        <outlet property="labelNothingElements" destination="kHP-yf-QPP" id="Y2G-0f-jqw"/>
                         <outlet property="loader" destination="YeR-sN-oCq" id="Rlh-MI-Aht"/>
                         <outlet property="searchTextField" destination="b3V-oW-CuE" id="gs0-qj-ZNm"/>
                         <outlet property="tapView" destination="4MG-a2-I5R" id="zmF-NF-pBA"/>
@@ -96,6 +107,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

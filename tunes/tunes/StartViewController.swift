@@ -13,13 +13,14 @@ final class StartViewController: UIViewController {
     @IBOutlet weak var contentSwitch: UISegmentedControl!
     @IBOutlet weak var contentTableView: UITableView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
+    @IBOutlet weak var labelNothingElements: UILabel!
     
     @IBOutlet var tapView: UITapGestureRecognizer!
     
     private var term: String = ""
     private let idCell = "ElementCell"
     
-    private lazy var model = ContentModel()
+    private var model = ContentModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ final class StartViewController: UIViewController {
         self.configureTableView()
         self.loaderChange(animate: false)
         self.contentChange(hidden: true)
+        self.labelNothingElements.isHidden = true
         
         
         self.tapView.isEnabled = false
@@ -148,7 +150,9 @@ final class StartViewController: UIViewController {
 
 extension StartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.size()
+        let size = self.model.size()
+        self.labelNothingElements.isHidden = !(size == 0) || (self.searchTextField.text == "")
+        return size
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,7 +173,14 @@ extension StartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.hideKeyboard()
         self.contentTableView.deselectRow(at: indexPath, animated: true)
-        let url = URL(string: (self.model.getElement(index: indexPath.row)?.previewUrl)!)!
+        
+        guard let element = self.model.getElement(index: indexPath.row) else {
+            return
+        }
+        guard let url = URL(string: element.previewUrl) else {
+            return
+        }
+        
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true)
     }
