@@ -22,7 +22,7 @@ final class StartViewController: UIViewController {
     
     private var model = ContentModel()
     
-    override func viewDidLoad() {
+    override func viewDidLoad() -> Void {
         super.viewDidLoad()
     
         self.configureTableView()
@@ -104,7 +104,7 @@ final class StartViewController: UIViewController {
         }
     }
 
-    @IBAction func clickSearchButton(_ sender: Any) {
+    @IBAction func clickSearchButton(_ sender: Any) -> Void {
         guard let term = self.validateSearchInput() else {
             return
         }
@@ -137,7 +137,7 @@ final class StartViewController: UIViewController {
         self.model.fillMovies(term: term, callback: callbackMovies, failback: failback)
     }
     
-    @IBAction func changeTypeContent(_ sender: Any) {
+    @IBAction func changeTypeContent(_ sender: Any) -> Void {
         self.model.contentChange()
         self.contentTableView.reloadData()
         self.hideKeyboard()
@@ -169,7 +169,7 @@ extension StartViewController: UITableViewDataSource {
 }
 
 extension StartViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         self.hideKeyboard()
         self.contentTableView.deselectRow(at: indexPath, animated: true)
         
@@ -184,5 +184,5 @@ extension StartViewController: UITableViewDelegate {
         present(vc, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) -> Void {}
 }

@@ -16,7 +16,7 @@ class ContentTableViewCell: UITableViewCell {
     
     private var currentUrlString = ""
     
-    override func awakeFromNib() {
+    override func awakeFromNib() -> Void {
         super.awakeFromNib()
         
         self.roundImage()
@@ -31,14 +31,13 @@ class ContentTableViewCell: UITableViewCell {
     }
     
     private func imageChange(image: UIImage?) -> Void {
-        if let image = image {
-            self.imageViewCell.image = image
+        self.imageViewCell.image = image
+        if let _ = image {
             self.loader.isHidden = true
             self.loader.stopAnimating()
         } else {
             self.loader.isHidden = false
             self.loader.startAnimating()
-            self.imageViewCell.image = nil
         }
     }
     

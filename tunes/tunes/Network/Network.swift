@@ -11,11 +11,11 @@ protocol ItunesNetwork {
     func getMusics(
         term: String,
         callback: (([ItunesElement]) -> Void)?,
-        failback: ((String) -> Void)?)
+        failback: ((String) -> Void)?) -> Void
     func getMovies(
         term: String,
         callback: (([ItunesElement]) -> Void)?,
-        failback: ((String) -> Void)?)
+        failback: ((String) -> Void)?) -> Void
 }
 
 class Network: ItunesNetwork {
@@ -24,7 +24,7 @@ class Network: ItunesNetwork {
     func getMusics(
         term: String,
         callback: (([ItunesElement]) -> Void)? = nil,
-        failback: ((String) -> Void)? = nil) {
+        failback: ((String) -> Void)? = nil) -> Void {
         guard let fixedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             failback?("Неверный формат запроса")
             return
@@ -37,7 +37,7 @@ class Network: ItunesNetwork {
     func getMovies(
         term: String,
         callback: (([ItunesElement]) -> Void)? = nil,
-        failback: ((String) -> Void)? = nil) {
+        failback: ((String) -> Void)? = nil) -> Void {
         guard let fixedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             failback?("Неверный формат запроса")
             return
@@ -51,7 +51,7 @@ class Network: ItunesNetwork {
     private func itunesRequest(
         urlString: String,
         callback: (([ItunesElement]) -> Void)? = nil,
-        failback: ((String) -> Void)? = nil) {
+        failback: ((String) -> Void)? = nil) -> Void {
         
         guard let url = URL(string: urlString) else {
             failback?("Запрос не получилось отправить")
