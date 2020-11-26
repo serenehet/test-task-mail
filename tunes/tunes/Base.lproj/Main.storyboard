@@ -61,12 +61,19 @@
                                 <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Поиск в ITunes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVD-WH-ass">
+                                <rect key="frame" x="10" y="80" width="147" height="24"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Vqy-1s-ZDX" firstAttribute="top" secondItem="b3V-oW-CuE" secondAttribute="bottom" constant="15" id="7MB-m9-BqE"/>
+                            <constraint firstItem="fVD-WH-ass" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Aji-QZ-fbE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hkU-kv-CSR" secondAttribute="trailing" constant="10" id="El4-Qi-znz"/>
                             <constraint firstItem="NTN-jC-EeD" firstAttribute="top" secondItem="Vqy-1s-ZDX" secondAttribute="bottom" constant="15" id="F1M-MF-GHe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NTN-jC-EeD" secondAttribute="trailing" constant="10" id="GPb-Ym-dFW"/>
@@ -76,9 +83,11 @@
                             <constraint firstItem="b3V-oW-CuE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="ROu-U5-lto"/>
                             <constraint firstItem="Vqy-1s-ZDX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VpS-ew-f7B"/>
                             <constraint firstItem="kHP-yf-QPP" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WX2-cI-LKi"/>
+                            <constraint firstItem="b3V-oW-CuE" firstAttribute="top" secondItem="fVD-WH-ass" secondAttribute="bottom" constant="10" id="Xfs-gh-PKs"/>
                             <constraint firstItem="hkU-kv-CSR" firstAttribute="centerY" secondItem="b3V-oW-CuE" secondAttribute="centerY" id="YVU-WG-TAN"/>
                             <constraint firstItem="hkU-kv-CSR" firstAttribute="leading" secondItem="b3V-oW-CuE" secondAttribute="trailing" constant="10" id="Ywd-St-7b4"/>
                             <constraint firstItem="NTN-jC-EeD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gkk-TL-tia"/>
+                            <constraint firstItem="fVD-WH-ass" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="hbd-2T-9aD"/>
                             <constraint firstItem="YeR-sN-oCq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="id5-dM-lLz"/>
                             <constraint firstItem="YeR-sN-oCq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="jNd-GC-fvD"/>
                             <constraint firstItem="b3V-oW-CuE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="qaF-ls-TgO"/>
